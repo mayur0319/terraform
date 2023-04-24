@@ -72,21 +72,11 @@ resource "aws_cloudfront_origin_access_identity" "oai" {
 resource "aws_cloudfront_distribution" "cf_dist" {
   enabled = true
   #   aliases             = [var.domain_name]
-#   default_root_object = "website/index.html"
-#   origin {
-
-#     domain_name = aws_s3_bucket.bucket.bucket_regional_domain_name
-#     origin_id   = aws_s3_bucket.bucket.id
-#     s3_origin_config {
-#       origin_access_identity = aws_cloudfront_origin_access_identity.oai.cloudfront_access_identity_path
-#     }
-#   }
 
     origin {
-    # domain_name = "${aws_api_gateway_deployment.rest_api_deployment.invoke_url}.execute-api.${var.region}.amazonaws.com"
-    domain_name = "${aws_api_gateway_deployment.rest_api_deployment.execution_arn}"
+    domain_name = "${aws_api_gateway_deployment.rest_api_deployment.id}.execute-api.${var.region}.amazonaws.com"
     origin_path = "/${var.rest_api_stage_name}"
-    origin_id   = "Custome-${aws_api_gateway_deployment.rest_api_deployment.invoke_url}.execute-api.${var.region}.amazonaws.com"
+    origin_id   = "Custome-${aws_api_gateway_deployment.rest_api_deployment.id}.execute-api.${var.region}.amazonaws.com"
     custom_origin_config {
       http_port              = 80
       https_port             = 443
@@ -95,9 +85,9 @@ resource "aws_cloudfront_distribution" "cf_dist" {
     }
   }
   default_cache_behavior {
-    allowed_methods        = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+    allowed_methods        = ["GET", "HEAD", "OPTIONS"]
     cached_methods         = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id       = "Custome-${aws_api_gateway_deployment.rest_api_deployment.invoke_url}.execute-api.${var.region}.amazonaws.com"
+    target_origin_id       = "Custome-${aws_api_gateway_deployment.rest_api_deployment.id}.execute-api.${var.region}.amazonaws.com"
     viewer_protocol_policy = "redirect-to-https"
     forwarded_values {
       headers      = []
