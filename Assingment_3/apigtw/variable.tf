@@ -30,7 +30,7 @@ variable "rest_api_stage_name" {
   default     = "dev"
 }
 
-# variable "apigtw_logs" {
-#   type = string
-#   description = "Cloudwatch log group arn"
-# }
+variable "apigtw_logs" {
+  type = string
+  description = "Cloudwatch log group arn"
+}
