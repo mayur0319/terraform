@@ -21,8 +21,8 @@ module "Cloudfront" {
   bucket_domain_name = module.lambda_function.aws_s3_bucket_domain
 }
 
-# module "Cloudwatch" {
-#   source = "./cloudwatch"
-# }
+module "Cloudwatch" {
+  source = "./cloudwatch"
+}
 
 
