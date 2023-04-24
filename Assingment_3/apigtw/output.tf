@@ -3,5 +3,5 @@ output "rest_api_url" {
 }
 
 output "rest_api_id" {
-  value = aws_api_gateway_deployment.rest_api_deployment.invoke_url
+  value = aws_api_gateway_deployment.rest_api_deployment.id
 }
