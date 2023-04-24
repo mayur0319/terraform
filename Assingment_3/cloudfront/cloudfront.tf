@@ -19,6 +19,12 @@ resource "aws_cloudfront_distribution" "cf_dist" {
     domain_name = "${var.aws_rest_api_id}.execute-api.${var.region}.amazonaws.com"
     origin_path = "/${var.rest_api_stage_name}"
     origin_id   = "Custome-${var.aws_rest_api_id}.execute-api.${var.region}.amazonaws.com"
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
   }
 
   default_cache_behavior {
