@@ -4,18 +4,18 @@ provider "aws" {
 
 #VPC
 resource "aws_vpc" "my_vpc" {
-  cidr_block = "10.0.0.0/16"
-  enable_dns_support = true
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
   enable_dns_hostnames = true
-  instance_tenancy = "default"
+  instance_tenancy     = "default"
   tags = {
     Name = "my-vpc_ASG"
   }
 }
 
 resource "aws_subnet" "subnet" {
-  vpc_id     = aws_vpc.my_vpc.id
-  cidr_block = "10.0.1.0/24"
+  vpc_id            = aws_vpc.my_vpc.id
+  cidr_block        = "10.0.1.0/24"
   availability_zone = "us-east-1d"
 
   tags = {
@@ -48,7 +48,7 @@ resource "aws_internet_gateway" "my_internet_gateway" {
   vpc_id = aws_vpc.my_vpc.id
 
   tags = {
-    Name = "my-internet-gateway" 
+    Name = "my-internet-gateway"
   }
 }
 
@@ -73,9 +73,9 @@ resource "aws_route_table_association" "my_route_table_association" {
 
 # Create a launch configuration and attach the security group
 resource "aws_launch_configuration" "example_lc" {
-  name_prefix          = "Demo-lc"
-  image_id             = "ami-007855ac798b5175e"
-  instance_type        = "t2.micro"
+  name_prefix   = "Demo-lc"
+  image_id      = "ami-007855ac798b5175e"
+  instance_type = "t2.micro"
   lifecycle {
     create_before_destroy = true
   }
@@ -93,7 +93,7 @@ resource "aws_autoscaling_group" "example_asg" {
   health_check_type         = "ELB"
   termination_policies      = ["OldestInstance", "Default"]
   target_group_arns         = [aws_lb_target_group.Demo_target_group.arn]
-  
+
   tag {
     key                 = "Name"
     value               = "my-instance"
@@ -133,11 +133,11 @@ resource "aws_elb" "example_elb" {
 #create security group for rds
 resource "aws_security_group" "rds" {
   name_prefix = "rds_"
-  vpc_id   = aws_vpc.my_vpc.id
+  vpc_id      = aws_vpc.my_vpc.id
   ingress {
-    from_port = 3306
-    to_port = 3306
-    protocol = "tcp"
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -149,20 +149,20 @@ resource "aws_s3_bucket" "rds_backup_bucket" {
 
 # Create an RDS instance with S3 backup
 resource "aws_db_instance" "my_rds_instance" {
-  identifier             = "my-rds-instance"
-  engine                 = "mysql"
-  engine_version         = "5.7"
-  instance_class         = "db.t2.micro"
-  allocated_storage      = 20
-  storage_type           = "gp2"
-  db_name                = "mydatabase"
-  username               = "mayur"
-  password               = "mayur123"
-  parameter_group_name     = "default.mysql5.7"
-  backup_retention_period  = 7
-  vpc_security_group_ids   = [aws_security_group.rds.id]
-  db_subnet_group_name     = aws_db_subnet_group.SB.name
-  skip_final_snapshot      = true
+  identifier              = "my-rds-instance"
+  engine                  = "mysql"
+  engine_version          = "5.7"
+  instance_class          = "db.t2.micro"
+  allocated_storage       = 20
+  storage_type            = "gp2"
+  db_name                 = "mydatabase"
+  username                = "mayur"
+  password                = "mayur123"
+  parameter_group_name    = "default.mysql5.7"
+  backup_retention_period = 7
+  vpc_security_group_ids  = [aws_security_group.rds.id]
+  db_subnet_group_name    = aws_db_subnet_group.SB.name
+  skip_final_snapshot     = true
   tags = {
     Name = "My RDS Instance"
   }
@@ -188,7 +188,7 @@ resource "aws_subnet" "rds_SB2" {
 
 #db subnet group name
 resource "aws_db_subnet_group" "SB" {
-  name        = "example-db-subnet-group"
+  name       = "example-db-subnet-group"
   subnet_ids = [aws_subnet.rds_SB1.id, aws_subnet.rds_SB2.id]
   tags = {
     Name = "example-db-subnet-group"
