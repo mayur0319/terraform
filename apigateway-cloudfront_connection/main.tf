@@ -8,7 +8,7 @@ resource "aws_api_gateway_rest_api" "rest_api" {
 resource "aws_api_gateway_resource" "rest_api_resource" {
   rest_api_id = aws_api_gateway_rest_api.rest_api.id
   parent_id   = aws_api_gateway_rest_api.rest_api.root_resource_id
-  path_part   = "movies"
+  path_part   = "Hello"
 }
 resource "aws_api_gateway_method" "rest_api_get_method" {
   rest_api_id   = aws_api_gateway_rest_api.rest_api.id
@@ -40,10 +40,10 @@ resource "aws_api_gateway_integration_response" "rest_api_get_method_integration
   status_code = aws_api_gateway_method_response.rest_api_get_method_response_200.status_code
   response_templates = {
     "application/json" = jsonencode({
-      body = "Hello from the movies API!"
+      body = "Hello API!"
     })
   }
-} 
+}
 
 resource "aws_api_gateway_deployment" "rest_api_deployment" {
   rest_api_id = aws_api_gateway_rest_api.rest_api.id
@@ -73,7 +73,7 @@ resource "aws_cloudfront_distribution" "cf_dist" {
   enabled = true
   #   aliases             = [var.domain_name]
 
-    origin {
+  origin {
     domain_name = "${aws_api_gateway_deployment.rest_api_deployment.id}.execute-api.${var.region}.amazonaws.com"
     origin_path = "/${var.rest_api_stage_name}"
     origin_id   = "Custome-${aws_api_gateway_deployment.rest_api_deployment.id}.execute-api.${var.region}.amazonaws.com"
@@ -113,5 +113,5 @@ resource "aws_cloudfront_distribution" "cf_dist" {
 }
 
 resource "aws_route53_zone" "hosted_zone" {
-  name = "demo.hands-on-cloud.com"
+  name = "Demo.code.for.cloudfront"
 }

@@ -1,7 +1,7 @@
-variable "rest_api_name"{
-    type = string
-    description = "Name of the API Gateway created"
-    default = "terraform-api-gateway"
+variable "rest_api_name" {
+  type        = string
+  description = "Name of the API Gateway created"
+  default     = "terraform-api-gateway"
 }
 
 variable "region" {
