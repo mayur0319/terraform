@@ -16,7 +16,7 @@ resource "aws_cloudfront_distribution" "cf_dist" {
     }
   }
 
-    origin {
+  origin {
     domain_name = aws_elb.my_elb.dns_name
     origin_id   = aws_elb.my_elb.dns_name
     custom_origin_config {
@@ -46,7 +46,7 @@ resource "aws_cloudfront_distribution" "cf_dist" {
     }
   }
   tags = {
-    "Project"   = "hands-on.cloud"
+    "Project"   = "hands-on"
     "ManagedBy" = "Terraform"
   }
   viewer_certificate {

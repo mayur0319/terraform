@@ -6,7 +6,7 @@ variable "aws_region" {
 variable "bucket_prefix" {
   type        = string
   description = "The prefix for the S3 bucket"
-  default     = "tf-s3-website-"
+  default     = "s3-website-hosting"
 }
 
 variable "instance_type" {
@@ -18,5 +18,5 @@ variable "instance_type" {
 variable "domain_name" {
   type        = string
   description = "The domain name to use"
-  default     = "demo.hands-on-cloud.com"
+  default     = "hands-on.com"
 }
