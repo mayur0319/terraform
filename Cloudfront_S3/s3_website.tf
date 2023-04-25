@@ -1,6 +1,6 @@
 # create S3 Bucket:
 resource "aws_s3_bucket" "bucket" {
-  bucket_prefix = var.bucket_prefix #prefix appends with timestamp to make a unique identifier
+  bucket_prefix = var.bucket_prefix
   tags = {
     "Project"   = "hands-on.cloud"
     "ManagedBy" = "Terraform"

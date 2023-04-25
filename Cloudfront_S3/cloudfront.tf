@@ -6,7 +6,6 @@ resource "aws_cloudfront_origin_access_identity" "oai" {
 # cloudfront terraform - creating AWS Cloudfront distribution :
 resource "aws_cloudfront_distribution" "cf_dist" {
   enabled             = true
-#   aliases             = [var.domain_name]
   default_root_object = "website/index.html"
   origin {
     domain_name = aws_s3_bucket.bucket.bucket_regional_domain_name
@@ -19,7 +18,7 @@ resource "aws_cloudfront_distribution" "cf_dist" {
     allowed_methods        = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
     cached_methods         = ["GET", "HEAD", "OPTIONS"]
     target_origin_id       = aws_s3_bucket.bucket.id
-    viewer_protocol_policy = "redirect-to-https" # other options - https only, http
+    viewer_protocol_policy = "redirect-to-https"
     forwarded_values {
       headers      = []
       query_string = true
