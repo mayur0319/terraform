@@ -9,9 +9,6 @@ module "api_gateway" {
   lambda_function_name   = module.lambda_function.lambda_function_name
   lambda_function_arn    = module.lambda_function.lambda_function_arn
   apigtw_logs            = module.Cloudwatch.cloudwatch_logs
-  depends_on = [
-    module.lambda_function
-  ]
 }
 
 module "Cloudfront" {
