@@ -46,7 +46,7 @@ resource "aws_iam_role_policy_attachment" "cicd-pipeline-attachment" {
 }
 
 
-resource "aws_iam_role" "tf-codebuild-role" {
+resource "aws_iam_role" "codebuild-role" {
   name = "tf-codebuild-role"
 
   assume_role_policy = <<EOF
