@@ -1,4 +1,4 @@
-const movies = [
+const Hello = [
 	"Hello From Lambda Function"
 ];
 exports.handler = async (event) => {
@@ -7,6 +7,6 @@ exports.handler = async (event) => {
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({ movies }),
+		body: JSON.stringify({ Hello }),
 	};
 };
