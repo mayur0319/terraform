@@ -95,5 +95,5 @@ resource "aws_iam_role_policy_attachment" "cicd-codebuild-attachment1" {
 
 resource "aws_iam_role_policy_attachment" "tf-cicd-codebuild-attachment2" {
   policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
-  role       = aws_iam_role.codepipeline-iam-role.id
+  role       = aws_iam_role.codebuild-role.id
 }
